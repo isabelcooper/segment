@@ -15,6 +15,17 @@ describe "client_segment" do
     expect(client_segment(Client.new(999, 6, 19.9))).to eq "enterprise"
     expect(client_segment(Client.new(999, 5, 20.0))).to eq "enterprise"
   end
+
+  it "classifies multiple clients" do
+    small_client = Client.new(1, 1, 0.5)
+    medium_client1 = Client.new(2, 2, 0.5)
+    medium_client2 = Client.new(65, 3, 15)
+    expected = {
+        "small" => [small_client],
+        "medium" => [medium_client1, medium_client2]
+    }
+    expect(segment([small_client, medium_client1, medium_client2])).to eq expected
+  end
 end
 
 
@@ -27,5 +38,15 @@ Small - employee count is less than 50 and number of offices is one and annual t
 Enterprise - all other clients.
 
 Medium - employee count between 50 - 1000 and office count is between 1 and 5 and turnover is between £10M - £20M.
+
+Can you write a new program that given an array list of clients, returns them grouped into their classifications.
+
+e.g.
+
+segment([Client.new(1, 1, 0.5), Client.new(2,2, 0.5), Client.new(65, 3, 15)]) => {
+ "Small" => [Client.new(1, 1, 0.5), Client.new(2,2, 0.5)],
+ "Medium" => [Client.new(65, 3, 15)]
+}
+
 
 =end

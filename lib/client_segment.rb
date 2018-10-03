@@ -8,7 +8,12 @@ def client_segment(client)
 end
 
 def segment(clients)
-
+  segment = clients.map {|client| client_segment(client) }
+  groups = Hash.new([])
+  clients.each do |client|
+    groups[client_segment(client)] += [client]
+  end
+  return groups
 end
 
 #  Small - employee count is less than 50 and number of offices is one and annual turnover is less than £1M.
