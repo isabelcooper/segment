@@ -1,6 +1,8 @@
 def client_segment(client)
-   if (client.employees < 50 && client.offices == 1 && client.turnover_in_millions < 1.0 )
+   if client.employees < 50 && client.offices == 1 && client.turnover_in_millions < 1.0
      "small"
+   elsif client.employees < 1000 && client.offices < 6  && client.turnover_in_millions <20.0
+     "medium"
      else "enterprise"
    end
 end
